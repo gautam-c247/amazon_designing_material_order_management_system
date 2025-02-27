@@ -1,0 +1,37 @@
+.badge {
+  display: inline-block;
+  padding: $padding-sm;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-500;
+  text-transform: capitalize;
+  border-radius: $border-radius-xs;
+  line-height: $line-height-base;
+  &.sucess{
+    background-color: $bg-sucess;
+    color: $sucess-color;
+  }
+  &.warning{
+    background-color: $bg-error;
+    color: $error-color;
+  }
+  &.info{
+    background-color: $bg-info;
+    color: $info-color;
+  }
+  &.danger{
+    background-color: $bg-danger;
+    color: $danger-color;
+  }
+  &.default{
+    background-color: $bg-default;
+    color: $default-color;
+  }
+}
+.badge:empty {
+  display: none;
+}
+
+.btn .badge {
+  position: relative;
+  top: -1px;
+}

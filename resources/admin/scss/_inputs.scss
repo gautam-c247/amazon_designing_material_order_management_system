@@ -1,0 +1,363 @@
+.input-wrapper {
+    margin: $margin-md auto;
+  }
+
+  .field {
+    position: relative;
+
+    span.password-toggle-icon {
+      position: absolute;
+      top: 46px;
+      right: 10px;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px $white inset !important;
+    }
+
+    label {
+      color: $tertiary;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-500;
+      display: block;
+      margin: $margin-none auto $margin-xs auto;
+      text-transform: capitalize;
+
+      sup {
+        color: $waring;
+      }
+    }
+
+    input[type="password"] {
+      padding-inline-end: 40px;
+    }
+
+    .form-control{
+      display: block;
+      @include size(100%, 44px);
+      padding: $padding-sm;
+      font-family: $family;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-400;
+      line-height: $line-height-md;
+      color: $tertiary-400;
+      appearance: none;
+      background-color: $white;
+      background-clip: padding-box;
+      border: 1px solid;
+      border-color: $bordercolor;
+      border-radius: $border-radius-sm;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+      &:focus {
+        color: $tertiary-400;
+        background-color: $white;
+        border-color: $secondary-400;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem $secondary-75;
+      }
+
+      &::-webkit-date-and-time-value {
+        min-width: 85px;
+        height: 1.5em;
+        margin: 0;
+      }
+
+      &::-webkit-datetime-edit {
+        display: block;
+        padding: 0;
+      }
+
+      &::-moz-placeholder,
+      &::placeholder {
+        color: var(--bs-secondary-color);
+        opacity: 1;
+      }
+
+      &:disabled {
+        background-color: var(--bs-secondary-bg);
+        opacity: 1;
+      }
+
+      &[type='file'] {
+        overflow: hidden;
+
+        &:not(:disabled):not([readonly]) {
+          cursor: pointer;
+        }
+
+        &::-webkit-file-upload-button,
+        &::file-selector-button {
+          padding: 0.375rem 0.75rem;
+          margin: -0.375rem -0.75rem;
+          margin-inline-end: 0.75rem;
+          color: $tertiary-400;
+          background-color: var(--bs-tertiary-bg);
+          pointer-events: none;
+          border-color: inherit;
+          border-style: solid;
+          border-width: 0;
+          border-inline-end-width: var(--bs-border-width);
+          border-radius: 0;
+          transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+          &:hover {
+            background-color: var(--bs-secondary-bg);
+          }
+        }
+      }
+    }
+
+    .form-select {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+      display: block;
+      @include size(100%, 44px);
+      padding: $padding-sm;
+      font-family: $family;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-400;
+      line-height: $line-height-md;
+      color: $tertiary-400;
+      appearance: none;
+      background-color: $white;
+      background-clip: padding-box;
+      border: 1px solid;
+      border-color: $bordercolor;
+      border-radius: $border-radius-sm;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      background-repeat: no-repeat;
+      background-size: 15px;
+      background-position: 95% center;
+
+
+      &:focus {
+        color: $tertiary-400;
+        background-color: $white;
+        border-color: $secondary-400;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem $secondary-75;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .form-select {
+        transition: none;
+      }
+    }
+
+    .form-select[multiple],
+    .form-select[size]:not([size='1']) {
+      background-image: none;
+    }
+
+    .form-select:disabled {
+      background-color: var(--bs-secondary-bg);
+    }
+
+    .form-select:-moz-focusring {
+      color: transparent;
+      text-shadow: 0 0 0 var(--bs-body-color);
+    }
+
+  }
+
+  .input-prepend {
+    display: block;
+    @include size(100%, 44px);
+    font-family: $family;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-400;
+    color: $tertiary-400;
+    appearance: none;
+    background-color: $white;
+    background-clip: padding-box;
+    border: 1px solid;
+    border-color: $bordercolor;
+    border-radius: $border-radius-sm;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+
+    .select-styled{
+      border: 0;
+      border-radius: $border-radius-none;
+      height: auto;
+      padding: $padding-none;
+      box-shadow: none;
+      @include size(100% , 100%);
+      display: flex;
+      align-items: center;
+
+    }
+
+    &:active,
+    &:focus {
+      color: $tertiary-400;
+      background-color: $white;
+      border-color: $secondary-400;
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem $secondary-75;
+    }
+
+
+    &::after {
+      content: "";
+      @include position($position: absolute, $left: 40px);
+      @include size(1px, 20px);
+      background-color: $bordercolor;
+    }
+
+    .form-select,
+    .form-control {
+      border: 0;
+      &:focus{
+        outline: none;
+        box-shadow: none;
+      }
+
+    }
+
+    &:has(.form-control:focus) {
+      border-color: $secondary-400;
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem $secondary-75;
+  }
+
+    svg {
+      @include size(24px, 24px);
+      flex: 50px;
+    }
+  }
+
+
+  input[type='radio'] {
+    appearance: none;
+    cursor: pointer;
+    @include size(20px, 20px);
+    border: 2px solid;
+    border-color: $bordercolor;
+    border-radius: 50%;
+    outline: none;
+    opacity: 1;
+    transition: 0.3s;
+    position: relative;
+    margin: 0;
+
+    &:hover:before {
+      box-shadow: 0px 0px 0px 4px rgba(80, 80, 200, 0.2);
+      border-radius: 50%;
+      opacity: 1;
+    }
+
+    &:before {
+      content: "";
+      display: block;
+      @include size(14px, 14px);
+      margin: 0px auto;
+      border-radius: 50%;
+      z-index: 999;
+      @include position($position: absolute);
+      border: 0;
+      transform: translate(1px, 1px);
+
+    }
+
+    &:checked:before {
+      background: $secondary;
+    }
+  }
+
+  input[type="checkbox"] {
+    @include size(20px, 20px);
+    border: 1px solid;
+    border-color: $secondary;
+    border-radius: $border-radius-xs;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+
+    &:checked {
+      background-color: $secondary;
+      border-color: $secondary;
+
+      // Add the checkmark using ::after
+      &::after {
+        content: "";
+        @include position($position: absolute, $left: 6px, $top: 3px);
+        @include size(6px, 10px);
+        border: solid $white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+
+  .form-check.form-check-inline {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+
+    label {
+      cursor: pointer;
+      font-size: $font-size-sm;
+      margin: 0;
+      color: $tertiary-400;
+      font-weight: $font-weight-400;
+    }
+  }
+
+  // Custom File Input
+
+  .custom-file-input {
+    display: block;
+    @include size(100%, 44px);
+    position: relative;
+    padding: 0;
+    font-family: $family;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-400;
+    line-height: $line-height-xl + 0.8rem;
+    color: $tertiary-400;
+    appearance: none;
+    background-color: $white;
+    background-clip: padding-box;
+    border: 1px solid $bordercolor;
+    border-radius: $border-radius-sm;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    &::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+
+    &::before {
+      content: 'Choose File';
+      position: absolute;
+      cursor: pointer;
+      height: 100%;
+      vertical-align: middle;
+      width: auto;
+      align-items: center;
+      padding: $padding-sm;
+      color: $tertiary-400;
+      display: inline-flex;
+      justify-content: center;
+      background: #EADDFF29;
+      border-right: 1px solid $bordercolor;
+      outline: none;
+      white-space: nowrap;
+      -webkit-user-select: none;
+    }
+
+    &:active {
+      outline: 0;
+    }
+  }

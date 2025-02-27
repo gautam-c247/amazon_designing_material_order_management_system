@@ -1,0 +1,29 @@
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin min-size($width, $height: $width) {
+  min-width: $width;
+  min-height: $height;
+}
+
+@mixin min-max-size($width) {
+  min-width: $width;
+  max-width: $width;
+}
+
+@mixin max-size($width, $height: $width) {
+  max-width: $width;
+  max-height: $height;
+}
+
+@mixin position($position: null, $top: null, $right: null, $bottom: null, $left: null) {
+    position: $position;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+  }
+

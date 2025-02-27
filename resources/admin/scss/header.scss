@@ -1,0 +1,129 @@
+header {
+  @include position($position: fixed, $right: 0, $top: 0);
+  @include size(100%, 65px);
+  background-color: $white;
+  border-bottom: 1px solid;
+  border-color: $bordercolor;
+  z-index: 2;
+
+  .user-profile{
+    img{
+     @include size(35x , 35px);  
+     border: 1px solid;
+     border-color: transparent;
+     object-fit: contain;
+     border-radius: $border-radius-circle;
+    }}
+  .navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    .brand-logo {
+      @include min-max-size(205px);
+    }
+  }
+
+  .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+  }
+
+  .navbar-collapse {
+    flex-grow: 1;
+    align-items: center;
+  }
+
+  .right-area {
+    flex: 1;
+
+    .navbar-nav {
+      gap: 30px;
+      margin: 0;
+      margin-inline-end: 5px !important;
+      @media(max-width: $medium){
+        margin-inline-end: $margin-none;
+      }
+    }
+
+    ul li:nth-child(even) {
+      position: relative;
+    }
+
+    ul li:nth-child(even)::after {
+      content: "";
+      @include position($position: absolute, $top: 5px, $left: -15px);
+      @include size(2px, 28px);
+      background-color: $bordercolor;
+    }
+
+    .navbar-nav svg {
+      color: $tertiary-400;
+      @include size(24px, 24px);
+    }
+
+    .navbar-nav li.nav-item.dropdown a {
+      display: flex;
+      align-items: center;
+      margin-inline-end: 15px;
+      gap: 5px;
+      justify-content: start;
+      color: $tertiary;
+      font-size: $font-size-sm;
+      @media(max-width: $medium){
+        margin-inline-end: $margin-none;
+      }
+      &:last-child{
+        background-color: $secondary-400;
+        margin-top: $margin-sm !important;
+      }
+    }
+
+    .dropdown-toggle:after {
+      top: 5px;
+      @media(max-width: $medium){
+        display: none;
+      }
+    }
+
+    .dropdown-menu.show {
+      background-color: $white;
+      border: 1px solid;
+      border-radius: $border-radius-sm;
+      margin-top: 20px;
+      border-color: $bordercolor;
+      padding: $padding-none;
+      left: unset;
+      right: 0;
+      @media(max-width: $medium){
+        min-width: 250px;
+      }
+      a {
+        margin: 0 !important;
+
+        &:hover {
+          background-color: $secondary-400;
+        }
+      }
+    }
+  }
+}
+
+.sidebartoggler {
+  @include size(40px, 40px);
+  background: $secondary-75;
+  border-radius: $border-radius-sm;
+  padding: $padding-sm !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    @include size(100%, 100%);
+  }
+}

@@ -1,0 +1,168 @@
+.imageUpload{
+    display: none;
+}
+.table-wrapper table th:last-child{
+    width: 100px;
+}
+// Toaster Icons
+
+#toast-container > div {
+    padding: $padding-md !important;
+    padding-left: $padding-xl !important;
+    border-radius: $border-radius-sm !important;
+    opacity: 1 !important;
+    border-radius: $border-radius-sm;
+    border: 1px solid $bordercolor;
+    box-shadow: $box-shadow-1;
+
+    &:hover {
+      box-shadow: none !important;
+      filter: unset !important;
+    }
+
+    color: $tertiary-400 !important;
+  }
+
+  .toast-close-button {
+    color: $tertiary-400 !important;
+    right: 0 !important;
+  }
+
+  .toast-title {
+    font-size: $font-size-sm + 0.2rem;
+    text-transform: capitalize;
+    line-height: 15px;
+  }
+
+  .toast-message {
+    font-size: $font-size-sm;
+  }
+
+  /* Success Toast */
+
+  .toast.success {
+    // background-color: $bg-sucess;
+    background-color: $white;
+
+    .toast-title {
+      color: $sucess-color !important;
+    }
+
+    &::before {
+      content: "";
+      @include size(30px, 30px);
+      @include position($position: absolute, $top: 20%, $left: 10px);
+      background-image: url("../images/toaster-sucess.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+
+  /* Error Toast */
+
+  .toast.error {
+    // background-color: $bg-error;
+    background-color: $white;
+
+    .toast-title {
+      color: $error-color !important;
+    }
+
+    &::before {
+      content: "";
+      @include size(30px, 30px);
+      @include position($position: absolute, $top: 20%, $left: 10px);
+      background-image: url("../images/toaster-error.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+
+  /* Warning Toast */
+
+  .toast.warning {
+    // background-color: $bg-danger;
+    background-color: $white;
+
+    .toast-title {
+      color: $waring-color !important;
+    }
+
+    &::before {
+      content: "";
+      @include size(30px, 30px);
+      @include position($position: absolute, $top: 20%, $left: 10px);
+      background-image: url("../images/toaster-warning.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+
+  /* Info Toast */
+
+  .toast.info {
+    // background-color: $bg-info;
+    background-color: $white;
+
+    .toast-title {
+      color: $info-color !important;
+    }
+
+    &::before {
+      content: "";
+      @include size(30px, 30px);
+      @include position($position: absolute, $top: 20%, $left: 10px);
+      background-image: url("../images/toaster-info.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+  .ck-editor__editable {
+    min-height: 200px; /* Adjust this value as needed */
+}
+.table-bottom ul.pagination li span[disabled] {
+    opacity: .5;
+    pointer-events: none;
+}
+
+
+.img-profile-icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    object-fit: cover !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.dashboard-content .row .col-md-3:nth-child(5) .card .icon{
+color: $primary;
+background-color: $primary-75;
+}
+.dashboard-content .row .col-md-3:nth-child(6) .card .icon{
+    background-color: #bf0280;
+}
+.table-wrapper table thead tr th .heading a.table-sort{
+    flex-shrink: 0;
+}
+.iti__selected-flag{
+    height: 44px;
+}
+.iti__flag-container{
+    width: 60px;
+}
+
+.iti__country-list{
+    width: 250px !important;
+}

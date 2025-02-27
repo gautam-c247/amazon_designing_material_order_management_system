@@ -1,0 +1,34 @@
+{
+  "resources/admin/images/toaster-error.svg": {
+    "file": "assets/toaster-error-72YZFdXI.svg",
+    "src": "resources/admin/images/toaster-error.svg"
+  },
+  "resources/admin/images/toaster-info.svg": {
+    "file": "assets/toaster-info-C49CPPqr.svg",
+    "src": "resources/admin/images/toaster-info.svg"
+  },
+  "resources/admin/images/toaster-sucess.svg": {
+    "file": "assets/toaster-sucess-BpgT8yQ3.svg",
+    "src": "resources/admin/images/toaster-sucess.svg"
+  },
+  "resources/admin/images/toaster-warning.svg": {
+    "file": "assets/toaster-warning-CPJdsg7k.svg",
+    "src": "resources/admin/images/toaster-warning.svg"
+  },
+  "resources/admin/scss/style.scss": {
+    "file": "assets/style-F4sCDw16.css",
+    "src": "resources/admin/scss/style.scss",
+    "isEntry": true
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-CW-Xe7el.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-C1QuQNff.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}

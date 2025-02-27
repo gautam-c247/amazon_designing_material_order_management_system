@@ -1,0 +1,128 @@
+button {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  appearance: button;
+}
+
+button:not(:disabled),
+[type='button']:not(:disabled),
+[type='reset']:not(:disabled),
+[type='submit']:not(:disabled) {
+  cursor: pointer;
+}
+
+button:focus:not(:focus-visible) {
+  outline: 0;
+}
+
+.btn {
+  border: 1px solid;
+  @include min-size(100px, auto);
+  padding: calc($padding-sm + .1rem) $padding-md;
+  border-radius: $border-radius-sm;
+  color: $primary;
+  font-weight: $font-weight-500;
+  font-size: $font-size-sm;
+
+  &.with-icon {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    svg {
+      @include size(23px, 23px);
+      transform: scale(1.1);
+    }
+  }
+  :focus-visible{
+    outline: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
+
+.btn:hover {}
+
+.btn-check+.btn:hover {}
+
+.btn:focus-visible {}
+
+.btn-check:focus-visible+.btn {}
+
+.btn-check:checked+.btn,
+:not(.btn-check)+.btn:active,
+.btn:first-child:active,
+.btn.active,
+.btn.show {}
+
+.btn-check:checked+.btn:focus-visible,
+:not(.btn-check)+.btn:active:focus-visible,
+.btn:first-child:active:focus-visible,
+.btn.active:focus-visible,
+.btn.show:focus-visible {}
+
+.btn-check:checked:focus-visible+.btn {}
+
+.btn:disabled,
+.btn.disabled,
+fieldset:disabled .btn {}
+
+.btn-primary {}
+
+.btn-secondary {
+  border-color: $secondary-400;
+  background-color: $secondary-75;
+  color: $primary;
+
+  &:hover {
+    background-color: $primary;
+    color: $white;
+  }
+}
+
+.btn-outline {
+  background-color: transparent;
+
+  &:hover {
+    background-color: $secondary;
+    color: $white;
+    border-color: $secondary-400;
+  }
+}
+
+.btn-outline-white {
+  background-color: $white;
+  border-color: $bordercolor;
+  color: $tertiary;
+
+  &:hover {
+    background-color: $secondary-500;
+    color: $white;
+    border-color: $secondary-500;
+  }
+
+  &:focus {
+    border-color: $secondary-400;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem $secondary-75;
+  }
+}
+
+
+.btn-lg,
+.btn-group-lg>.btn {}
+
+.btn-sm,
+.btn-group-sm>.btn {}

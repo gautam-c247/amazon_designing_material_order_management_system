@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+  <rect x="0.5" y="0.5" width="17" height="17" rx="4.5" stroke="white" stroke-opacity="0.5"/>
+  <!-- Group for the first two paths -->
+  <g>
+    <path d="M10.9482 5.17226V12.8277" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M13.5001 7.70269L10.9482 5.15086" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- Group for the last two paths -->
+  <g>
+    <path d="M7.05176 12.8491V5.19364" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M7.05176 12.8491L4.5 10.2973" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

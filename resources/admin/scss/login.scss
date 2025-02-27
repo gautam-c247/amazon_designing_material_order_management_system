@@ -1,0 +1,65 @@
+
+.login-wrapper {
+  background-color: $secondary-50;
+  @include size(100%, 100%);
+  padding: $padding-md;
+  margin: 0;
+  .banner-image {
+    @include max-size(max-content, 100%);
+    @include position($position:fixed, $top:1rem, $left:1rem, $bottom:1rem, $right:1rem);
+    margin-left: auto;
+    img {
+      @include size(100%, 100%);
+      object-fit: cover;
+      border-radius: $border-radius-sm;
+      object-position: 100% 100%;
+    }
+  }
+
+  .login {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-card {
+    @include max-size(475px, 100%);
+    border: 1px solid;
+    border-color: $bordercolor;
+    border-radius: $border-radius-sm;
+    overflow: hidden;
+
+    .card-header {
+      text-align: center;
+      padding: $padding-md;
+    }
+
+    .login-form {
+      @include size(100%, auto);
+      padding: $padding-md $padding-lg;
+      background-color: $white;
+      @media(max-width: $medium){
+          padding: $padding-md;
+      }
+      h1{
+        margin: $margin-none;
+        color: $tertiary;
+      }
+      p{
+        color: $tertiary-400;
+      }
+      a{
+        font-size: $font-size-sm;
+      }
+    }
+  }
+}
+
+.copyright-text {
+  p {
+    font-size: $font-size-sm;
+    color: $tertiary-400;
+    margin-bottom: $margin-none;
+  }
+}

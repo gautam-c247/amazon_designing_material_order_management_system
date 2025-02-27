@@ -1,0 +1,224 @@
+.multi-select {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    user-select: none;
+
+    .multi-select-header {
+        border: 1px solid;
+        padding: 7px 30px 7px 12px;
+        overflow: hidden;
+        gap: 7px;
+        min-height: 44px;
+        border-color: rgba(74, 68, 89, 0.0784313725);
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 25px;
+            right: 15px;
+            transform: translateY(-50%);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+            height: 15px;
+            width: 15px;
+        }
+
+        &.multi-select-header-active {
+            &::after {
+                transform: translateY(-50%) rotate(180deg);
+                top: 20px;
+            }
+
+            +.multi-select-options {
+                display: flex;
+            }
+        }
+
+        .multi-select-header-placeholder {
+            color: rgb(128.3, 124.1, 138.8);
+        }
+
+        .multi-select-header-option {
+            display: inline-flex;
+            align-items: center;
+            background-color: #EADDFF29;
+            font-size: 14px;
+            padding: 3px 8px;
+            border-radius: 8px;
+            border: 1px solid;
+            border-color: rgba(74, 68, 89, 0.0784313725);
+            color: rgb(128.3, 124.1, 138.8);
+            font-weight: 400;
+            text-transform: capitalize;
+
+        }
+
+        .multi-select-header-max {
+            font-size: 14px;
+            color: rgb(128.3, 124.1, 138.8);
+            display: none;
+        }
+    }
+
+    .multi-select-options {
+        position: absolute;
+        display: none;
+        border: 1px solid;
+        border-color: rgba(74, 68, 89, 0.0784313725);
+        box-sizing: border-box;
+        flex-flow: wrap;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        margin-top: 5px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        max-height: 200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--bs-primary-bg-subtle);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: var(--bs-secondary);
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: var(--bs-secondary);
+        }
+
+        .multi-select-option,
+        .multi-select-all {
+            padding: 4px 12px;
+            height: 44px;
+
+            .multi-select-option-radio,
+            .multi-select-option-text,
+            .multi-select-all .multi-select-option-radio,
+            .multi-select-all .multi-select-option-text {
+                margin-right: 14px;
+                height: 18px;
+                width: 18px;
+                border-radius: 4px;
+                border: 1px solid;
+                border-color: rgba(74, 68, 89, 0.0784313725);
+            }
+
+            .multi-select-option-text,
+            .multi-select-all .multi-select-option-text {
+                box-sizing: border-box;
+                flex: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-size: 14px;
+                font-weight: 500;
+                color: rgb(128.3, 124.1, 138.8);
+                line-height: 2;
+                border: 0;
+                height: 30px;
+                text-transform: capitalize;
+            }
+
+            &.multi-select-selected {
+
+                .multi-select-option-radio,
+                .multi-select-all.multi-select-selected .multi-select-option-radio {
+                    border-color:  rgba(74, 68, 89, 0.0784313725);
+                    background-color: rgb(222.1, 208.1, 255);
+
+                    &::after {
+                        content: "";
+                        display: block;
+                        width: 5px;
+                        height: 10px;
+                        margin: 0.1em 0 0 0.35em;
+                        border: solid;
+                        border-width: 0 0.15em 0.15em 0;
+                        transform: rotate(45deg);
+                        color: #ffffff;
+                    }
+                }
+
+
+            }
+
+            &:hover,
+            &:active {
+                background-color: rgb(222 208 255 / 19%);
+                border-radius: 0;
+            }
+        }
+
+        .multi-select-all {
+            border-bottom: 1px solid;
+            border-color: rgba(74, 68, 89, 0.0784313725);
+            border-radius: 0;
+        }
+
+        .multi-select-search {
+            min-height: 40px;
+            padding: 7px 10px;
+            border: 0;
+            border-bottom: 1px solid;
+            border-color: rgba(74, 68, 89, 0.0784313725);
+            border-radius: 0px;
+            width: 100%;
+            outline: none;
+            font-size: 14px;
+            background-color: transparent;
+            font-family: 'Outfit';
+
+            &::placeholder {
+                color: rgb(128.3, 124.1, 138.8);
+        
+            }
+        }
+    }
+
+    .multi-select-header,
+    .multi-select-option,
+    .multi-select-all {
+        display: flex;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        align-items: center;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        font-size: 14px;
+        color: rgb(128.3, 124.1, 138.8);
+        &.multi-select-header-active{
+            color: rgb(128.3, 124.1, 138.8);
+            background-color: #ffffff;
+            border-color: rgb(222.1, 208.1, 255);
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgb(243.25, 238.25, 255);
+        }
+    }
+}
+
+.multi-select-header {
+    span {
+        svg {
+            width: 15px;
+            height: 15px;
+            margin-inline-start: 5px;
+
+            path {
+                stroke: rgb(128.3, 124.1, 138.8);
+            }
+        }
+    }
+}

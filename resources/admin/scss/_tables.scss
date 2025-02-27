@@ -1,0 +1,232 @@
+.table-wrapper {
+  border-radius: $border-radius-sm + 2px;
+  border: 1px solid;
+  border-color: $bordercolor;
+  background-color: $white;
+  overflow: hidden;
+
+  table {
+    caption-side: bottom;
+    border-collapse: collapse;
+    width: 100%;
+
+    label {
+      @include size(40px, 40px);
+      font-size: $font-size-sm;
+      padding: $padding-sm;
+      color: $white;
+      background-color: $primary-400;
+      border-radius: $border-radius-circle;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .table-action {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      justify-content: center;
+
+      span {
+        @include size(25px, 25px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          @include size(20px, 20px);
+          color: $tertiary-200;
+        }
+      }
+    }
+
+    .info {
+      p {
+        &:nth-child(1) {
+          font-size: $font-size-sm;
+        }
+
+        font-size: $font-size-xs;
+        margin: $margin-none;
+      }
+    }
+
+    &.table-striped {
+      tbody {
+        tr:nth-child(even) {
+          background-color: $secondary-50;
+
+          &:hover {
+            background-color: $secondary-75;
+          }
+        }
+      }
+    }
+
+    thead {
+      background-color: $primary;
+      @include size(100%, 52px);
+
+      tr {
+        &:hover {
+          background-color: $primary;
+        }
+
+        th {
+          font-weight: $font-weight-600;
+          color: $white;
+          text-transform: capitalize;
+          text-align: left;
+          padding: $padding-sm + 0.3rem;
+
+          .heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            h6 {
+              margin: $margin-none;
+              font-weight: $font-weight-700;
+              font-size: $font-size-sm;
+              text-wrap: nowrap;
+            }
+          }
+          &:last-child {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+  tr {
+    &:hover {
+      background-color: $secondary-75;
+    }
+
+    td {
+      font-size: $font-size-sm;
+      color: $tertiary;
+      line-height: $line-height-md;
+      padding: $padding-sm + 0.3rem;
+      text-wrap: nowrap;
+
+      &:nth-child(1) {
+        input {
+          transform: translateY(3px);
+        }
+      }
+    }
+  }
+  tbody {
+    tr {
+      td:last-child {
+        background-color: $white;
+        border-left: 1px solid;
+        border-color: $bordercolor;
+        @include min-max-size(100px);
+      }
+    }
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+.table-bottom {
+  .field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: end;
+
+    label {
+      margin: 0;
+      font-weight: $font-weight-400;
+    }
+  }
+
+  ul.pagination {
+    height: 100%;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    gap: 10px;
+    margin: 0;
+    border-left: 1px solid;
+    border-color: $bordercolor;
+    li {
+      @include min-size(30px, 30px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      span {
+        svg {
+          @include size(24px, 24px);
+          transform: translateY(3px);
+        }
+      }
+      &.active {
+        background-color: $white;
+        border-color: $bordercolor;
+        border: 1px solid;
+        border-radius: $border-radius-sm;
+      }
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .table-responsive-sm {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .table-responsive-md {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .table-responsive-lg {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .table-responsive-xl {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 1399.98px) {
+  .table-responsive-xxl {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+tbody tr:nth-child(4n + 0) label {
+  background-color: $secondary-400;
+}
+
+tbody tr:nth-child(4n + 1) label {
+  background-color: $sucess-color;
+}
+
+tbody tr:nth-child(4n + 2) label {
+  background-color: $info-color;
+}
+
+tbody tr:nth-child(4n + 3) label {
+  background-color: $waring-color;
+}
