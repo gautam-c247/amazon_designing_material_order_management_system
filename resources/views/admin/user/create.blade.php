@@ -4,89 +4,30 @@
     <!-- Full Name -->
     <div class="col-md-6">
         <div class="field">
-            <x-forms.label for="name" text="Full Name" :required="true" />
-            <input type="text" id="name" name="name" class="form-control"
-                value="{{ isset($user) ? $user->name : old('name') }}" />
-            @error('name')
-                <span class="error-message text-danger">{{ $message }}</span>
-            @enderror
+            <x-forms.text-input id="name" name="name" label="Full Name" :required="true" />
         </div>
     </div>
-    <!-- Email -->
+     <!-- Email -->
     <div class="col-md-6">
         <div class="field">
-            <x-forms.label for="name" text="Email" :required="true" />
-            <input type="email" id="email" name="email" class="form-control"
-                value="{{ isset($user) ? $user->email : old('email') }}" />
-            @error('email')
-                <span class="error-message text-danger">{{ $message }}</span>
-            @enderror
+            <x-forms.email-input id="email" name="email" label="Email" :required="true"/>
         </div>
     </div>
-    <!-- Location -->
-    <div class="col-md-6">
+   {{-- Role --}}
+    <div class="col-md-4">
         <div class="field">
-            <x-forms.label for="name" text="Location" :required="true" />
-            <input type="text" id="location" name="location" class="form-control"
-                value="{{ isset($user) ? $user->userDetails?->location : old('location') }}" />
-            @error('location')
-                <span class="error-message text-danger">{{ $message }}</span>
-            @enderror
+            <x-forms.select2 id="role" :options="['admin' => 'Admin', 'user' => 'User']" name="role" label="Role" :required="true"/>
         </div>
     </div>
-    <!-- Date of Birth -->
-    <div class="col-md-6">
+    {{-- Status --}}
+    <div class="col-md-4">
         <div class="field">
-            <x-forms.label for="name" text="Date of Birth" :required="true" />
-            <input type="text" id="date_of_birth" name="date_of_birth" class="form-control"
-                value="{{ isset($user) ? $user->userDetails?->date_of_birth : old('date_of_birth') }}" />
-            @error('date_of_birth')
-                <span class="error-message text-danger">{{ $message }}</span>
-            @enderror
+            <x-forms.select2 id="status" :options="['1' => 'Active', '0' => 'Inactive']" name="status" label="Status" :required="true"/>
         </div>
     </div>
-    <!-- Gender -->
-    <div class="col-md-12">
+    <div class="col-md-4">
         <div class="field">
-            <x-forms.label for="name" text="Gender" :required="true" />
-            <div class="checkox-wraper">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" value="Male" type="radio" name="gender" id="gender_male"
-                        {{ old('gender', isset($user) ? $user->userDetails?->gender : null) == 'Male' ? 'checked' : '' }}>
-                    <label class="form-check-label" for="gender_male">Male</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" value="Female" type="radio" name="gender" id="gender_female"
-                        {{ old('gender', isset($user) ? $user->userDetails?->gender : null) == 'Female' ? 'checked' : '' }}>
-                    <label class="form-check-label" for="gender_female">Female</label>
-                </div>
-            </div>
-            @error('gender')
-                <span class="error-message text-danger">{{ $message }}</span>
-            @enderror
-        </div>
-    </div>
-    <!-- Profile Picture -->
-    <div class="col-md-6">
-        <div class="field">
-            <x-forms.label for="name" text="Profile Picture " :required="false" />
-            <div class="custom-file">
-                <input type="file" id="profile_picture" accept="image/jpeg,image/png,image/jpg"
-                    name="profile_picture" class="custom-file-input">
-            </div>
-            @error('profile_picture')
-                <span class="error-message text-danger">{{ $message }}</span>
-            @enderror
-        </div>
-    </div>
-    <!-- Contact Number -->
-    <div class="col-md-6">
-        <div class="field">
-            <x-forms.label for="name" text="Phone No. " :required="false" />
-            <input type="hidden" id="country_code" name="country_code"
-                value="{{ isset($user) ? $user->userDetails?->country_code : old('country_code') }}">
-            <input type="tel" id="phone" name="contact_no" class="form-control" maxlength="10"
-                value="{{ isset($user) ? $user->userDetails?->contact_no : old('contact_no') }}" />
+        <x-forms.password-input id="password" label="Password"  name="password" :required="true" />
         </div>
     </div>
 </x:admin.form-modal>
