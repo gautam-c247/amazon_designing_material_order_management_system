@@ -20,24 +20,15 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // API Routes
-        Route::prefix('api')
-            ->middleware('api')
-            ->group(function () {
-                require base_path('routes/admin/api/category.php');
-            });
-
-        // Web Routes
+    // Web Routes
         Route::middleware('web')
-            ->group(function () {
-                require base_path('routes/admin/web/category.php');
-            });
-        Route::prefix('api')
-        ->middleware('api')
         ->group(function () {
-            require base_path('routes/admin/api/user.php');
+            require base_path('routes/admin/web/category.php');
         });
-
+     Route::middleware('web')
+        ->group(function () {
+            require base_path('routes/admin/web/admin.php');
+        });
     // Web Routes
     Route::middleware('web')
         ->group(function () {

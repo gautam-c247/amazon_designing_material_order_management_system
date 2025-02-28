@@ -3,6 +3,7 @@
     const categoriesValidation = @json(__('categories'));
     const userValidationMessages = @json(__('users'));
     const editProfileValidations = @json(__('profile'));
+    const notificationsValidation = @json(__('notifications'));
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://code.iconify.design/3/3.0.0/iconify.min.js"></script>

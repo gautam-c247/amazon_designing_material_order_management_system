@@ -13,10 +13,6 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
         then: function () {
-            Route::prefix('api')
-                ->group(function () {
-                    require base_path('routes/admin/api/auth.php');
-                });
             Route::middleware('web')
                 ->group(function () {
                     require base_path('routes/admin/web/auth.php');
