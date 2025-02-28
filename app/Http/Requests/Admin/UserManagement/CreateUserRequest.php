@@ -24,13 +24,17 @@ class CreateUserRequest extends BaseRequest
         return [
             'email' => 'required|email|max:50|unique:users,email',
             'name' => 'required|string|max:50',
-            'contact_no' => 'nullable|digits:10',
-            'location' => 'nullable|string|max:50',
-            'country_code' => 'nullable|string|max:5',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'gender' => 'required|string|max:10',
-            'date_of_birth' => 'required|date',
-            'location' => 'required|string|max:50'
+            'password' => 'required|min:8|max:15',
+            'role' => 'required',
+            'status' => 'required',
+
+            // 'contact_no' => 'nullable|digits:10',
+            // 'location' => 'nullable|string|max:50',
+            // 'country_code' => 'nullable|string|max:5',
+            // 'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            // 'gender' => 'required|string|max:10',
+            // 'date_of_birth' => 'required|date',
+            // 'location' => 'required|string|max:50'
         ];
     }
 }

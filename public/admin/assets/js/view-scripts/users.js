@@ -37,16 +37,13 @@ function populateTable(users) {
                             </div>
                         </div>
                     </td>
-                    <td>${user?.contact_no || "N/A"}</td>
                     <td data-bs-toggle="tooltip" title="${
                         user.email
                     }">${trimString(user.email, 20)}</td>
-                    <td>${user?.gender ? capitalize(user?.gender) : "N/A"}</td>
                     <td>${trimString(
-                        user?.location ? capitalize(user.location) : "N/A",
+                        user?.roles[0] ? capitalize(user.roles[0].name) : "N/A",
                         20
                     )}</td>
-                    <td>${user?.date_of_birth || "N/A"}</td>
                      <td><a class="change-status" href="users/${
                          user.id
                      }/change-status" data-bs-toggle="tooltip" title="Click to ${
@@ -203,7 +200,12 @@ function validateCreateUserForm() {
             status:{
                 required: true,
             },
-
+            password:{
+                required: true,
+                minlength: 8,
+                maxlength: 15,
+                strongPassword: true,
+            }
         },
         messages: {
             email: {
@@ -220,6 +222,12 @@ function validateCreateUserForm() {
             },
             status: {
                 required: userValidationMessages.create_user.status.required,
+            },
+            password: {
+                required: validationMessages.change_password.password.required,
+                minlength: validationMessages.change_password.password.min,
+                maxlength: validationMessages.change_password.password.min,
+                strongPassword: validationMessages.global.strongPassword,
             },
         },
     });

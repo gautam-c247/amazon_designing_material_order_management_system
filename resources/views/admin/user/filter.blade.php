@@ -11,11 +11,12 @@
     </div>
     <div class="col-md-6">
         <div class="field">
-            <label for="status">Gender</label>
-            <select class="js-select2" name="gender">
+            <label for="status">Role</label>
+            <select class="js-select2" name="role">
                 <option value="">All</option>
-                <option>Male</option>
-                <option>Female</option>
+                <option value="admin">Admin</option>
+                <option value="merchant">Merchant</option>
+                <option value="designer">Designer</option>
             </select>
         </div>
     </div>

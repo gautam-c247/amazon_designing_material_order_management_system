@@ -13,63 +13,39 @@ use Illuminate\Support\Facades\Storage;
 class UserManagementService
 {
     /**
-     * Retrieve a paginated list of users with filtering, searching, and ordering capabilities.
+     * Retrieves a paginated list of users with optional search and filter criteria.
      *
-     * This method fetches user data along with their associated user details
-     * while excluding the currently authenticated user. The data can be filtered
-     * by status and gender, searched by name or email, and ordered by specified
-     * user detail fields. Pagination is applied based on the 'per_page' request parameter.
+     * This method allows filtering users by name or email using the 'search' parameter
+     * and filtering by status if the 'status' parameter is provided. It also includes
+     * user roles in the response.
      *
-     * @param \Illuminate\Http\Request $request The request object containing search, filter, and pagination parameters.
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator The paginated list of users.
+     * @param \Illuminate\Http\Request $request The request object containing search and filter criteria
+     * @return \Illuminate\Pagination\LengthAwarePaginator A paginated list of users
      */
 
     public function index($request)
     {
-        $query = User::select(
-            'users.id',
-            'users.name',
-            'users.email',
-            'users.status',
-            'users.created_at',
-            'user_details.gender',
-            'user_details.date_of_birth',
-            'user_details.contact_no',
-            'user_details.location',
-            'user_details.profile_picture',
-            'user_details.id as user_details_id'
-        )
-            ->leftJoin('user_details', 'users.id', '=', 'user_details.user_id')
-            ->where('users.id', '!=', Auth::id());
-
-        // Add search conditions
+        $query = User::select('name','email','id','created_at','status')->with(['roles' => function($q){
+            $q->select('id', 'name');
+        }]);
         if ($request->has('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('users.name', 'like', '%' . $request->search . '%')
                     ->orWhere('users.email', 'like', '%' . $request->search . '%');
             });
         }
-
-        // Filter by status
+        // filter by status
         if ($request->filled('status')) {
             $query->where('users.status', $request->status);
         }
-
-        // Filter by gender
-        if ($request->filled('gender')) {
-            $query->whereHas('userDetails', function ($q) use ($request) {
-                $q->where('gender', $request->gender);
+        // filter by role
+        if ($request->filled('role')) {
+            $query->whereHas('roles', function ($q) use ($request) {
+                $q->where('name', $request->role);
             });
         }
-        // Apply ordering
-        if ($request->has('order_by') && $request->has('order')) {
-            $allowedColumns = (new UserDetail())->getFillable();
-            if (in_array($request->order_by, $allowedColumns)) {
-                $query->orderBy('user_details.' . $request->order_by, $request->order);
-            }
-        }
-        // Pagination
-        return $query->paginate($request->input('per_page', config('admin.per_page')));
+        $users = $query->paginate($request->input('per_page', config('admin.per_page')));
+        return $users;
     }
 
     /**
@@ -81,21 +57,13 @@ class UserManagementService
      */
     public function store(array $data)
     {
-        $userData = array_intersect_key($data, array_flip(['name', 'password', 'email']));
-        $userDetails = array_intersect_key($data, array_flip(['gender', 'date_of_birth', 'contact_no', 'location', 'profile_picture','country_code']));
         DB::beginTransaction();
         try {
-            if (isset($userDetails['profile_picture'])) {
-                $userDetails['profile_picture'] = Storage::disk('public')->put('uploads', $userDetails['profile_picture']);
-            }
-            $userData['password'] = Hash::make('Codebank@' . rand(0000, 9999));
-            $user = User::create($userData);
-            if ($user) {
-                $user->userDetails()->create($userDetails);
-            } else {
-                DB::rollBack();
-                throw new Exception('User not created');
-            }
+            $role = $data['role'];
+            unset($data['role']);
+            $data['password'] = Hash::make($data['password']);
+            $user = User::create($data);
+            $user->assignRole($role);
             DB::commit();
             return $user;
         } catch (\Exception $e) {
@@ -104,37 +72,23 @@ class UserManagementService
         }
     }
     /**
-     * Updates a user.
+     * Updates an existing user with new data and assigns a role.
      *
-     * @param int $userId The user's ID
-     * @param array $data The input data
-     * @return User The updated user
-     * @throws \Exception
+     * @param int $userId The ID of the user to update
+     * @param array $data An associative array of user data including role
+     * @return User The updated user object
+     * @throws \Exception If the update operation fails
      */
+
     public function update($userId, $data)
     {
-        $data = array_filter($data, function ($value) {
-            return $value !== null;
-        });
-        $userData = array_intersect_key($data, array_flip(['name', 'password', 'email']));
-        $userDetails = array_intersect_key($data, array_flip(['gender', 'date_of_birth', 'contact_no', 'location', 'profile_picture','country_code']));
-
         DB::beginTransaction();
         try {
+            $role = $data['role'];
+            unset($data['role']);
             $user = User::findOrFail($userId);
-            if (isset($userDetails['profile_picture'])) {
-                if ($user->userDetails?->profile_picture) {
-                    Storage::disk('public')->delete('uploads/' . $user->userDetails?->profile_picture);
-                }
-                $userDetails['profile_picture'] = Storage::disk('public')->put('uploads', $userDetails['profile_picture']);
-            }
-            $user->update($userData);
-            if ($userDetails) {
-                $user->userDetails()->updateOrCreate(
-                    ['user_id' => $user->id],
-                    $userDetails
-                );
-            }
+            $user->update($data);
+            $user->assignRole($role);
             DB::commit();
             return $user;
         } catch (\Exception $e) {
@@ -167,7 +121,7 @@ class UserManagementService
     }
     public function edit($userId)
     {
-        return User::with('userDetails')->findOrFail($userId);
+        return User::with('roles')->findOrFail($userId);
     }
     public function changeStatus($userId)
     {
