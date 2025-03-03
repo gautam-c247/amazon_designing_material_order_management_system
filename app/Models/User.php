@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use Spatie\Permission\Traits\HasRoles;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Scopes\OrderByScope;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
@@ -26,7 +26,9 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'status'
+        'status',
+        'phone',
+        'country_code',
     ];
 
     /**
@@ -59,17 +61,6 @@ class User extends Authenticatable implements JWTSubject
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-
-
-    public function getJWTCustomClaims()
-    {
-        return [];
     }
     public function setFirstNameAttribute($value)
     {

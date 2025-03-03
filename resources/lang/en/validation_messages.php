@@ -148,5 +148,5 @@ return [
         'delete_failed' => 'Failed to delete :attribute.',
         'status_change_success' => 'Status changed successfully.',
         'status_change_failed' => 'Failed to change status.'
-    ]
+    ],
 ];
