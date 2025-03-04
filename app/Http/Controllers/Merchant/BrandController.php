@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Services\Merchant\BrandService;
 use Illuminate\Http\Request;
 use App\Models\Brand;
+use Exception;
 
 class BrandController extends Controller
 {
@@ -32,8 +33,8 @@ class BrandController extends Controller
             $brands = $this->brandService->index($request);
             return response()->json(['data' => $brands, 'message' => __('validation_messages.common.fetch_success', ['attribute' => 'Brands'])], 200);
         } else {
-            $title = 'Brands';
-            return view('merchant.brand.index', compact('title'));
+            $categories = $this->brandService->getAllCategories();
+            return view('merchant.brand.index', compact('categories'));
         }
     }
 
@@ -42,7 +43,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('name', 'id');
+        $categories = $this->brandService->getAllCategories();
         return view('merchant.brand.create', compact('categories'))->render();
     }
 

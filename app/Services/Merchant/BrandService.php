@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Brand;
+use App\Models\Category;
+
 class BrandService
 {
     /**
@@ -50,6 +52,7 @@ class BrandService
         $order_by = $request->input('order_by', 'id');
         $order = $request->input('order', 'desc');
         $status = $request->input('status', '');
+        $category_id = $request->input('category', '');
         $query = Brand::select(['id', 'name', 'category_id', 'logo', 'website_url', 'status'])
             ->with('category')
             ->where(function ($q) use ($search) {
@@ -60,6 +63,9 @@ class BrandService
             });
         if ($status != '') {
             $query->where('status', $status);
+        }
+        if($category_id != ''){
+            $query->where('category_id', $category_id);
         }
         $query->orderBy($order_by, $order);
 
@@ -146,5 +152,13 @@ class BrandService
         $brand = Brand::findOrFail($brandId);
         $brand->status = $brand->status === '1' ? '0' : '1';
         $brand->save();
+    }
+    /**
+     * Returns a collection of all categories as name => id pairs.
+     *
+     * @return \Illuminate\Support\Collection<string, int>
+     */
+    public function getAllCategories(){
+        return Category::pluck('name', 'id');
     }
 }
