@@ -16,6 +16,13 @@
                     <span class="hide-menu">Brands</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link {{ Route::is('merchant.product.index') ? 'active' : '' }}"
+                    href="{{ route('merchant.product.index') }}"><span class="menu-icon iconify"
+                        data-icon="material-symbols:inventory"></span>
+                    <span class="hide-menu">Products</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </aside>

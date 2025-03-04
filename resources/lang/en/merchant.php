@@ -54,4 +54,22 @@ return [
             'url' => 'Please enter a valid URL',
         ],
     ],
+    'create_product' => [
+        'name' => [
+            'required' => 'Name is required',
+            'minlength' => 'Name must be at least 3 characters',
+            'maxlength' => 'Name must not exceed 255 characters',
+        ],
+        'brand_id' => [
+            'required' => 'Brand is required',
+        ],
+        'image' => [
+            'required' => 'Please select atleast one image',
+            'extension' => 'Image must be a valid image file (jpg, jpeg, png, gif)',
+        ],
+        'description' => [
+            'maxlength' => 'Description must not exceed 1000 characters',
+            'required' => 'Description is required',
+        ],
+    ],
 ];

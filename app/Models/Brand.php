@@ -34,4 +34,12 @@ class Brand extends Model
     {
         return $value ? asset('storage/'.$value) : null;
     }
+
+    /**
+     * Get the products for the brand.
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

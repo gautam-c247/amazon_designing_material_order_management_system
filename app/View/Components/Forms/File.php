@@ -13,16 +13,18 @@ class File extends Component
     public $label;
     public $required;
     public $accept;
+    public $multiple;
     /**
      * Create a new component instance.
      */
-    public function __construct($name, $label, $id = null, $required = false, $accept = '*')
+    public function __construct($name, $label, $id = null, $required = false, $accept = '*', $multiple = false)
     {
         $this->name = $name;
         $this->label = $label;
         $this->id = $id ?? $name;
         $this->required = $required;
         $this->accept = $accept;
+        $this->multiple = $multiple;
     }
 
     /**
