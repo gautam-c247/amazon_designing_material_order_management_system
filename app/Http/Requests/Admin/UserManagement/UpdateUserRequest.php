@@ -30,13 +30,9 @@ class UpdateUserRequest extends BaseRequest
                 Rule::unique('users', 'email')->ignore($userId),
             ],
             'name' => 'required|string|max:255',
-            'contact_no' => 'nullable|digits:10',
-            'location' => 'required|string|max:50',
-            'country_code' => 'nullable|string|max:5',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'gender' => 'required|string|max:10',
-            'date_of_birth' => 'required|date',
-            'password' => 'nullable|min:8|max:15'
+            'password' => 'nullable|min:8|max:15',
+            'role' => 'required',
+            'status' => 'required',
         ];
     }
 }

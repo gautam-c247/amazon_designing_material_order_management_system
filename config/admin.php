@@ -7,15 +7,25 @@ return [
             "route" => 'admin.dashboard',
             "icon" => "material-symbols:dashboard-rounded",
         ],
-        "Category" => [
-            "label" => "Category",
-            "route" => 'category.index',
-           "icon" => "material-symbols:category-rounded",
-        ],
         "user" => [
             "label" => "User",
             "route" => 'users.index',
            "icon" => "material-symbols:group-rounded",
+        ],
+        "Category" => [
+            "label" => "Category",
+            "route" => 'category.index',
+            "icon" => "material-symbols:category-rounded",
+        ],
+        "Service" => [
+            "label" => "Service",
+            "route" => 'service.index',
+            "icon" => "material-symbols:build",
+        ],
+        "Notification" => [
+            "label" => "Notification",
+            "route" => 'notification.index',
+            "icon" => "material-symbols:notifications-active",
         ],
     ],
     "route_prefix" => env("ADMIN_ROUTE_PREFIX", "admin"),

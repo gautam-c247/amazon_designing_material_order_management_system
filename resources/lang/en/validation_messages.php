@@ -137,5 +137,16 @@ return [
     ],
     'js_var' => [
         'route_prefix' => config('admin.route_prefix', 'admin'),
-    ]
+    ],
+    'common' => [
+        'fetch_success' => ':attribute fetched successfully.',
+        'create_success' => ':attribute created successfully.',
+        'create_failed' => 'Failed to create :attribute.',
+        'update_success' => ':attribute updated successfully.',
+        'update_failed' => 'Failed to update :attribute.',
+        'delete_success' => ':attribute deleted successfully.',
+        'delete_failed' => 'Failed to delete :attribute.',
+        'status_change_success' => 'Status changed successfully.',
+        'status_change_failed' => 'Failed to change status.'
+    ],
 ];

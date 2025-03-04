@@ -452,37 +452,37 @@ function passwordToggle() {
 }
 passwordToggle();
 
-document.addEventListener("DOMContentLoaded", function () {
-    const phoneInput = document.querySelector("#phone");
-    const countryCodeInput = document.querySelector("#country_code");
-    const storedCountryCode = countryCodeInput.value; // Get stored country code
+// document.addEventListener("DOMContentLoaded", function () {
+//     const phoneInput = document.querySelector("#phone");
+//     const countryCodeInput = document.querySelector("#country_code");
+//     const storedCountryCode = countryCodeInput.value; // Get stored country code
 
-    const iti = window.intlTelInput(phoneInput, {
-        initialCountry: storedCountryCode ? getCountryIso2(storedCountryCode) : "auto",
-        separateDialCode: true,
-        preferredCountries: ["us", "gb", "in"],
-        utilsScript: "{{ asset('admin/assets/js/utils.js') }}"
-    });
+//     const iti = window.intlTelInput(phoneInput, {
+//         initialCountry: storedCountryCode ? getCountryIso2(storedCountryCode) : "auto",
+//         separateDialCode: true,
+//         preferredCountries: ["us", "gb", "in"],
+//         utilsScript: "{{ asset('admin/assets/js/utils.js') }}"
+//     });
 
-    // Set the country code when changing country selection
-    phoneInput.addEventListener("countrychange", function () {
-        const selectedCountryData = iti.getSelectedCountryData();
-        countryCodeInput.value = selectedCountryData.dialCode;
-    });
+//     // Set the country code when changing country selection
+//     phoneInput.addEventListener("countrychange", function () {
+//         const selectedCountryData = iti.getSelectedCountryData();
+//         countryCodeInput.value = selectedCountryData.dialCode;
+//     });
 
-    // Update the country code before form submission
-    document.querySelector("form").addEventListener("submit", function () {
-        const selectedCountryData = iti.getSelectedCountryData();
-        countryCodeInput.value = selectedCountryData.dialCode;
-    });
+//     // Update the country code before form submission
+//     document.querySelector("form").addEventListener("submit", function () {
+//         const selectedCountryData = iti.getSelectedCountryData();
+//         countryCodeInput.value = selectedCountryData.dialCode;
+//     });
 
-    // Function to get country ISO2 code from dial code
-    function getCountryIso2(dialCode) {
-        const countryData = window.intlTelInputGlobals.getCountryData();
-        const country = countryData.find(c => c.dialCode == dialCode);
-        return country ? country.iso2 : "us"; // Default to "us" if not found
-    }
-});
+//     // Function to get country ISO2 code from dial code
+//     function getCountryIso2(dialCode) {
+//         const countryData = window.intlTelInputGlobals.getCountryData();
+//         const country = countryData.find(c => c.dialCode == dialCode);
+//         return country ? country.iso2 : "us"; // Default to "us" if not found
+//     }
+// });
 
 
 

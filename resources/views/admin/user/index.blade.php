@@ -29,36 +29,36 @@
                             <x:admin.sort-icon order="asc" orderBy="name" />
                         </div>
                     </th>
-                    <th>
+                    {{-- <th>
                         <div class="heading">
                             <h6>Phone Number</h6>
                             <x:admin.sort-icon order="asc" orderBy="contact_no" />
                         </div>
-                    </th>
+                    </th> --}}
                     <th>
                         <div class="heading">
                             <h6>Email</h6>
                             <x:admin.sort-icon order="asc" orderBy="email" />
                         </div>
                     </th>
-                    <th>
+                    {{-- <th>
                         <div class="heading">
                             <h6>Gender</h6>
                             <x:admin.sort-icon order="asc" orderBy="gender" />
                         </div>
-                    </th>
+                    </th> --}}
                     <th>
                         <div class="heading">
-                            <h6>Location</h6>
-                            <x:admin.sort-icon order="asc" orderBy="location" />
+                            <h6>Role</h6>
+                            <x:admin.sort-icon order="asc" orderBy="role" />
                         </div>
                     </th>
-                    <th>
+                    {{-- <th>
                         <div class="heading">
                             <h6>Date of birth</h6>
                             <x:admin.sort-icon order="asc" orderBy="date_of_birth" />
                         </div>
-                    </th>
+                    </th> --}}
                     <th>
                         <div class="heading">
                             <h6>Status</h6>
