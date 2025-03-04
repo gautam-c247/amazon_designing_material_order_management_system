@@ -18,6 +18,7 @@ class BrandFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
+            'user_id' => 1, // This will be overridden by the seeder
             'category_id' => 1, // This will be overridden by the seeder
             'logo' => $this->faker->imageUrl(100, 100, 'business', true, 'Faker'),
             'website_url' => $this->faker->url,

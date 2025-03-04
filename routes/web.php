@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Merchant\BrandController;
 use App\Http\Controllers\Merchant\ProductController;
+use App\Http\Controllers\Merchant\ProjectController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +39,19 @@ Route::middleware(['auth','role:merchant'])->group(function(){
     ]);
     Route::post('product/{id}/change-status', [ProductController::class, 'changeStatus'])->name('product.change-status');
     Route::delete('product/delete-image/{id}', [ProductController::class, 'deleteImage'])->name('merchant.product.delete-image');
-
+// project routes
+    Route::resource('projects', ProjectController::class)->names([
+        'index'   => 'merchant.project.index',
+        'create'  => 'merchant.project.create',
+        'store'   => 'merchant.project.store',
+        'show'    => 'merchant.project.show',
+        'edit'    => 'merchant.project.edit',
+        'update'  => 'merchant.project.update',
+        'destroy' => 'merchant.project.destroy',
+    ]);
+    Route::post('project/{id}/change-status', [ProjectController::class, 'changeStatus'])->name('project.change-status');
+    Route::delete('project/delete-image/{id}', [ProjectController::class, 'deleteImage'])->name('merchant.project.delete-image');
+    Route::get('/project/get-products-by-brand', [ProjectController::class, 'fetchProducts'])->name('merchant.project.fetchProducts');
 });
 
 

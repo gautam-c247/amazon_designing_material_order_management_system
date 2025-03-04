@@ -14,7 +14,8 @@ class CreateBrandsTable extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('category_id');
+            $table->foreignId('category_id');
+            $table->foreignId('user_id')->constrained()->comment('The merchant who created the brand');
             $table->string('logo');
             $table->string('website_url')->nullable();
             $table->text('about')->nullable();

@@ -23,6 +23,16 @@
                     <span class="hide-menu">Products</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link {{ Route::is('merchant.project.index') ? 'active' : '' }}"
+                    href="{{ route('merchant.project.index') }}"><span class="menu-icon iconify"
+                        data-icon="material-symbols:stack"></span>
+                    <span class="hide-menu">Projects</span>
+                </a>
+            </li>
+
+
+
         </ul>
     </nav>
 </aside>

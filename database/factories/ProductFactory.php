@@ -18,6 +18,7 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->word,
             'brand_id' => Brand::factory(),
+            'user_id' => 1,
             'description' => $this->faker->paragraph,
             'service_status' => $this->faker->randomElement(['1', '0']),
         ];

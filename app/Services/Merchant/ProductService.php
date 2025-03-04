@@ -27,6 +27,7 @@ class ProductService
         DB::beginTransaction();
         try {
             unset($data['images']);
+            $data['user_id'] = auth()->id();
             $product = Product::create($data);
             if ($images) {
                 foreach ($images as $image) {
@@ -182,4 +183,6 @@ class ProductService
         Storage::disk(config('filesystems.default'))->delete($media->name);
         $media->delete();
     }
+   
+
 }

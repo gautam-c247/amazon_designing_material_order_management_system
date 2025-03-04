@@ -72,4 +72,29 @@ return [
             'required' => 'Description is required',
         ],
     ],
+    'create_project' => [
+        'name' => [
+            'required' => 'Name is required',
+            'minlength' => 'Name must be at least 3 characters',
+            'maxlength' => 'Name must not exceed 255 characters',
+        ],
+        'user_id' => [
+            'required' => 'Merchant is required',
+        ],
+        'brand_id' => [
+            'required' => 'Brand is required',
+        ],
+        'product_id' => [
+            'required' => 'Product is required',
+        ],
+        'priority' => [
+            'required' => 'Priority is required',
+        ],
+        'guidelines' => [
+            'maxlength' => 'Guidelines must not exceed 1000 characters',
+        ],
+        'notes' => [
+            'maxlength' => 'Notes must not exceed 1000 characters',
+        ],
+    ],
 ];

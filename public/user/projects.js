@@ -1,4 +1,4 @@
-const apiUrl = "/products";
+const apiUrl = "/projects";
 const tableBody = $("tbody");
 $(document).ready(function () {
     // Show loading message initially
@@ -6,14 +6,17 @@ $(document).ready(function () {
     fetchDataAndPopulate();
     initializeCatForm();
 });
+
 /**
  * Populate the table with the given data.
- * @param {array} datas - Array of product objects
+ * @param {array} datas - Array of project objects
  */
 function populateTable(datas) {
     let html = "";
     if (datas.length) {
         datas.forEach(function (data) {
+            const priorityClass = data.priority === 'high' ? 'danger' : data.priority === 'medium' ? 'warning' : 'sucess';
+            const statusClass = data.status === 'Completed' ? 'sucess' : data.status === 'In progress' ? 'warning' : data.status === 'Pending' ? 'danger' : 'info';
             html += `
                 <tr>
                     <td>
@@ -23,17 +26,13 @@ function populateTable(datas) {
                             </div>
                         </div>
                     </td>
-                    <td><span data-bs-toggle="tooltip" title="${data.brand.name}" class="text-capitalize">${trimString(data.brand.name, 30)}</span></td>
-                    <td>${trimString(data.description, 50)}</td>
-                    <td><a class="change-status" href="product/${
-                         data.id
-                     }/change-status" data-bs-toggle="tooltip" title="Click to ${
-                data.service_status == 1 ? "Pending" : "Completed"
-            }" href="javascript:void(0)">${
-                data.service_status == "1"
-                    ? "<span class='badge sucess'>Completed</span>"
-                    : "<span class='badge warning'>Pending</span>"
-            }</a></td>
+                    <td><span data-bs-toggle="tooltip" title="${data.user.name}" class="text-capitalize">${trimString(data.user.name, 30)}</span></td>
+                    <td><span data-bs-toggle="tooltip" title="${data.product.brand.name}" class="text-capitalize">${trimString(data.product.brand.name, 30)}</span></td>
+                    <td><span data-bs-toggle="tooltip" title="${data.product.name}" class="text-capitalize">${trimString(data.product.name, 30)}</span></td>
+                    <td>${trimString(data.guidelines, 50)}</td>
+                    <td>${trimString(data.notes, 50)}</td>
+                    <td><span class="badge ${priorityClass}">${data.priority}</span></td>
+                    <td><span class="badge ${statusClass}">${data.status}</span></td>
                     <td>
                         <div class="table-action">
                             <a data-bs-toggle="tooltip" title="View ${trimString(data.name, 15)}" class="cat-from-button" href="${apiUrl+'/'+data.id}"><span class="view"><span class="iconify" data-icon="iconamoon:eye" data-inline="false"></span></span></a>
@@ -50,7 +49,7 @@ function populateTable(datas) {
             `;
         });
     } else {
-        html = emptyTable(message = "No Product Available");
+        html = emptyTable(message = "No Project Available");
     }
     tableBody.html(html);
     initializeCatForm();
@@ -83,8 +82,8 @@ function initializeCatForm() {
                     $("#globalModal").modal("show");
                     implementSelect2OnModel();
                     submitDataForm();
-                    deleteImage();
                     initializeCkeditor();
+                    initializeBrands();
                 },
             });
         });
@@ -107,67 +106,76 @@ function updateCatValidation() {
                 minlength: 3,
                 maxlength: 255,
             },
+            user_id: {
+                required: true,
+            },
             brand_id: {
                 required: true,
             },
-            images: {
-                required: !isEdit,
-            },
-            description: {
-                maxlength: 1000,
+            product_id: {
                 required: true,
-
+            },
+            priority: {
+                required: true,
+            },
+            guidelines: {
+                maxlength: 1000,
+            },
+            notes: {
+                maxlength: 1000,
             },
         },
         messages: {
             name: {
-                required: productsValidation.create_product.name.required,
-                minlength: productsValidation.create_product.name.minlength,
-                maxlength: productsValidation.create_product.name.maxlength,
+                required: projectsValidation.create_project.name.required,
+                minlength: projectsValidation.create_project.name.minlength,
+                maxlength: projectsValidation.create_project.name.maxlength,
+            },
+            user_id: {
+                required: projectsValidation.create_project.user_id.required,
             },
             brand_id: {
-                required: productsValidation.create_product.brand_id.required,
+                required: projectsValidation.create_project.brand_id.required,
             },
-            image: {
-                required: productsValidation.create_product.image.required,
-                extension: productsValidation.create_product.image.extension,
+            product_id: {
+                required: projectsValidation.create_project.product_id.required,
             },
-            description: {
-                maxlength: productsValidation.create_product.description.maxlength,
-                required: productsValidation.create_product.description.required,
+            priority: {
+                required: projectsValidation.create_project.priority.required,
+            },
+            guidelines: {
+                maxlength: projectsValidation.create_project.guidelines.maxlength,
+            },
+            notes: {
+                maxlength: projectsValidation.create_project.notes.maxlength,
             },
         },
     });
 }
 
-
-/**
- * Delete an image.
- */
-function deleteImage() {
-    $(".delete-image").off("click").click(function (e) {
-        e.preventDefault();
-        let url = $(this).attr("href");
-        $.ajax({
-            url: url,
-            method: "DELETE",
-            dataType: "json",
-            success: function (response) {
-                toastr.success(
-                    "Image deleted successfully",
-                    "Success",
-                    {
-                        iconClass: "success",
-                        timeOut: 2000,
-                    }
-                );
-
-                $(e.target).closest("div").remove();
-            },
-            error: function (xhr) {
-         toastr.error(xhr.responseJSON.message);
-            }
-        });
-    });
+function initializeCkeditor() {
+    console.log("Initializing CKEditor");
+    ClassicEditor.create(document.querySelector("#guidelines"), {
+        ckfinder: {
+            uploadUrl: "/admin/blog/upload-media",
+        },
+    })
 }
-
+function initializeBrands() {
+    $('#brand_id').on('change', function () {
+            var brandId = $(this).val();
+            $.ajax({
+                url: '/project/get-products-by-brand',
+                type: 'GET',
+                data: { brand_id: brandId },
+                success: function (data) {
+                    var productSelect = $('#product_id');
+                    productSelect.empty();
+                    $.each(data.data, function (key, value) {
+                        productSelect.append('<option value="' + key + '">' + value + '</option>');
+                    });
+                    productSelect.trigger('change');
+                }
+            });
+        });
+}

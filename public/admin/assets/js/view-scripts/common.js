@@ -404,12 +404,10 @@ function emptyTable(message = "Empty List") {
   </tr>`;
 }
 function trimString(str, num) {
-    if (str.length > num) {
-        return str.slice(0, num) + "...";
-    } else {
-        return str;
-    }
+    if (!str) return ""; // Handle null or undefined values
+    return str.length > num ? str.slice(0, num) + "..." : str;
 }
+
 /**
  * Trigger a confirmation dialog when the user clicks on a "change status" button.
  * If confirmed, make a POST request to the href of the button.

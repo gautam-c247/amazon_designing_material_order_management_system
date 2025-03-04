@@ -27,6 +27,7 @@ class BrandService
             if (isset($data['logo'])) {
                 $data['logo'] = Storage::disk(config('filesystems.default'))->put('logos', $data['logo']);
             }
+            $data['user_id'] = auth()->id();
             Brand::create($data);
             DB::commit();
             return true;

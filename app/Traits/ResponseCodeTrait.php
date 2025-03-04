@@ -66,7 +66,7 @@ trait ResponseCodeTrait
             ],
             // 400 Bad Request: The request was invalid or could not be understood by the server.
             '400' => [
-                'message' => 'HTTP_BAD_REQUEST',
+                'message' => $error,
                 'error' => $message,
                 'http_code' => 400
             ],

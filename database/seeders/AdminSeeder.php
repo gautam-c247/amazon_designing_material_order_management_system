@@ -19,9 +19,10 @@ class AdminSeeder extends Seeder
             'password' => 'Codebank@123',
         ]);
         $role = Role::create(['name' => 'admin']);
-        Role::create(['name' => 'merchant']);
+      $merchant =  Role::create(['name' => 'merchant']);
         Role::create(['name' => 'designer']);
         $user->assignRole($role);
+        $user->assignRole($merchant);
 
     }
 }

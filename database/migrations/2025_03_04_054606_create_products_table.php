@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name',100);
             $table->foreignId('brand_id');
+            $table->foreignId('user_id')->constrained()->comment('The merchant who created the product');
             $table->text('description');
             $table->enum('service_status', ['1', '0'])->default('0')->comment('1=Completed, 0=Pending');
             $table->timestamps();
