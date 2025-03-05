@@ -37,16 +37,13 @@ function populateTable(users) {
                             </div>
                         </div>
                     </td>
-                    <td>${user?.contact_no || "N/A"}</td>
                     <td data-bs-toggle="tooltip" title="${
                         user.email
                     }">${trimString(user.email, 20)}</td>
-                    <td>${user?.gender ? capitalize(user?.gender) : "N/A"}</td>
                     <td>${trimString(
-                        user?.location ? capitalize(user.location) : "N/A",
+                        user?.roles[0] ? capitalize(user.roles[0].name) : "N/A",
                         20
                     )}</td>
-                    <td>${user?.date_of_birth || "N/A"}</td>
                      <td><a class="change-status" href="users/${
                          user.id
                      }/change-status" data-bs-toggle="tooltip" title="Click to ${
@@ -101,32 +98,32 @@ const today = new Date();
 today.setFullYear(today.getFullYear() - 18);
 
 function initializeIntlTelInput() {
-    const phoneInput = document.querySelector("#phone");
-    const countryCodeInput = document.querySelector("#country_code");
+    // const phoneInput = document.querySelector("#phone");
+    // const countryCodeInput = document.querySelector("#country_code");
 
-    // Get the stored country code (e.g., +44)
-    const storedCountryCode = countryCodeInput.value;
+    // // Get the stored country code (e.g., +44)
+    // const storedCountryCode = countryCodeInput.value;
 
-    if (phoneInput) {
-        const iti = window.intlTelInput(phoneInput, {
-            initialCountry: storedCountryCode ? getCountryIso2(storedCountryCode) : "auto", // Use the stored country code
-            separateDialCode: true,
-            preferredCountries: ["us", "gb", "in"],
-            utilsScript: "{{ asset('admin/assets/js/utils.js') }}"
-        });
+    // if (phoneInput) {
+    //     const iti = window.intlTelInput(phoneInput, {
+    //         initialCountry: storedCountryCode ? getCountryIso2(storedCountryCode) : "auto", // Use the stored country code
+    //         separateDialCode: true,
+    //         preferredCountries: ["us", "gb", "in"],
+    //         utilsScript: "{{ asset('admin/assets/js/utils.js') }}"
+    //     });
 
-        // Set the country code when changing country selection
-        phoneInput.addEventListener("countrychange", function () {
-            const selectedCountryData = iti.getSelectedCountryData();
-            countryCodeInput.value = selectedCountryData.dialCode; // Ensure it's updated
-        });
+    //     // Set the country code when changing country selection
+    //     phoneInput.addEventListener("countrychange", function () {
+    //         const selectedCountryData = iti.getSelectedCountryData();
+    //         countryCodeInput.value = selectedCountryData.dialCode; // Ensure it's updated
+    //     });
 
-        // Update the country code before form submission
-        document.querySelector("form").addEventListener("submit", function () {
-            const selectedCountryData = iti.getSelectedCountryData();
-            countryCodeInput.value = selectedCountryData.dialCode; // Ensure it's updated before submission
-        });
-    }
+    //     // Update the country code before form submission
+    //     document.querySelector("form").addEventListener("submit", function () {
+    //         const selectedCountryData = iti.getSelectedCountryData();
+    //         countryCodeInput.value = selectedCountryData.dialCode; // Ensure it's updated before submission
+    //     });
+    // }
 }
 
 // Function to get country ISO2 code from dial code (e.g., +44 => gb)
@@ -171,6 +168,8 @@ function initializeUserModel() {
                     initializeIntlTelInput();
 
                     $("#globalModal").modal("show");
+                    implementSelect2OnModel();
+                    passwordToggle();
                 },
             });
         });
@@ -195,26 +194,18 @@ function validateCreateUserForm() {
                 maxlength: 50,
                 noSpecialChars: true,
             },
-            contact_no: {
-                maxlength: 10,
-                minlength: 10,
-                digits: true,
-            },
-            location: {
+            role:{
                 required: true,
-                maxlength: 50,
             },
-            profile_picture: {
-                filesize: 2 * 1024 * 1024, // 2MB in bytes
-            },
-            gender: {
+            status:{
                 required: true,
-                maxlength: 50,
             },
-            date_of_birth: {
+            password:{
                 required: true,
-                date: true,
-            },
+                minlength: 8,
+                maxlength: 15,
+                strongPassword: true,
+            }
         },
         messages: {
             email: {
@@ -226,30 +217,17 @@ function validateCreateUserForm() {
                 required: userValidationMessages.create_user.name.required,
                 maxlength: userValidationMessages.create_user.name.maxlength,
             },
-            contact_no: {
-                maxlength:
-                    userValidationMessages.create_user.contact_no.maxlength,
-                minlength:
-                    userValidationMessages.create_user.contact_no.minlength,
-                digits: userValidationMessages.create_user.contact_no.digits,
+            role: {
+                required: userValidationMessages.create_user.role.required,
             },
-            location: {
-                required: userValidationMessages.create_user.location.required,
-                maxlength:
-                    userValidationMessages.create_user.location.maxlength,
+            status: {
+                required: userValidationMessages.create_user.status.required,
             },
-            profile_picture: {
-                filesize:
-                    userValidationMessages.create_user.profile_picture.filesize,
-            },
-            gender: {
-                required: userValidationMessages.create_user.gender.required,
-                maxlength: userValidationMessages.create_user.gender.maxlength,
-            },
-            date_of_birth: {
-                required:
-                    userValidationMessages.create_user.date_of_birth.required,
-                date: userValidationMessages.create_user.date_of_birth.date,
+            password: {
+                required: validationMessages.change_password.password.required,
+                minlength: validationMessages.change_password.password.min,
+                maxlength: validationMessages.change_password.password.min,
+                strongPassword: validationMessages.global.strongPassword,
             },
         },
     });

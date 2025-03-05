@@ -29,8 +29,9 @@ class UserManagementController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request The input HTTP request object.
+     *
+     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse The rendered view when the request is not an AJAX request, otherwise a JSON response.
      */
     public function index(Request $request)
     {
@@ -41,11 +42,10 @@ class UserManagementController extends Controller
         return view('admin.user.index');
     }
 
-
     /**
-     * Show the form for creating a new resource.
+     * Display the create user form.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View The rendered create user form view.
      */
     public function create()
     {
@@ -54,24 +54,18 @@ class UserManagementController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\Admin\UserManagement\CreateUserRequest  $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateUserRequest $request)
     {
         $data = $request->validated();
-        if ($request->expectsJson()) {
-            try {
-                $user = $this->userManagementService->store($data);
-                return $this->getResponseCode(code: 201, message: __('users.create_success', ['attribute' => 'User']));
-            } catch (\Exception $e) {
-                return $this->getResponseCode(code: 500, message: $e->getMessage(), error: $e->getMessage());
-            }
-        } else {
-            try {
-                $user = $this->userManagementService->store($data);
-                return redirect()->route('users.index')->with('success', __('users.create_success', ['attribute' => 'Users']));
-            } catch (\Exception $e) {
-                return redirect()->back()->with('error', $e->getMessage())->withInput();
-            }
+        try {
+            $user = $this->userManagementService->store($data);
+            return $this->getResponseCode(code: 201, message: __('users.create_success', ['attribute' => 'User']));
+        } catch (\Exception $e) {
+            return $this->getResponseCode(code: 400, message: $e->getMessage(), error: $e->getMessage());
         }
     }
 
@@ -85,48 +79,45 @@ class UserManagementController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
      */
+
     public function edit(Request $request, string $id)
     {
-        if ($request->expectsJson()) {
-            try {
-                $user = $this->userManagementService->edit($id);
-                return $this->getResponseCode(code: 200, message: __('users.fetch_success', ['attribute' => 'Users']), data: $user);
-            } catch (\Exception $e) {
-                return $this->getResponseCode(code: 500, message: $e->getMessage(), error: $e->getMessage());
-            }
-        } else {
-            try {
-                $user = $this->userManagementService->edit($id);
-                return view('admin.user.create', compact('user'))->render();
-            } catch (\Exception $e) {
-                return redirect()->back()->with('error', $e->getMessage())->withInput();
-            }
-        }
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
+        try {
+            $user = $this->userManagementService->edit($id);
+            return view('admin.user.create', compact('user'))->render();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage())->withInput();
+        }
+
+    }
+/**
+ * Update the specified user resource in storage.
+ *
+ * @param UpdateUserRequest $request The request object containing the update data.
+ * @param int $id The ID of the user to be updated.
+ * @return \Illuminate\Http\JsonResponse A JSON response indicating success or failure of the update operation.
+ *
+ * This method attempts to update the user details using the UserManagementService.
+ * It validates the request data and handles exceptions, returning appropriate
+ * success or error messages in the response.
+ */
+
     public function update(UpdateUserRequest $request, int $id)
     {
         // use validated function to remove csrf input field and other unwanted fields
         $data  = $request->validated();
-        if ($request->expectsJson()) {
-            try {
+         try {
                 $res = $this->userManagementService->update($id, $data);
                 return $this->getResponseCode(code: 200, message: __('users.update_success', ['attribute' => 'Users']));
             } catch (Exception $e) {
                 return $this->getResponseCode(500, message: __('users.update_failed', ['attribute' => 'User']), error: $e->getMessage());
             }
-        } else {
-            try {
-                $res = $this->userManagementService->update($id, $data);
-                return redirect()->route('users.index')->with('success', __('users.update_success', ['attribute' => 'Users']));
-            } catch (Exception $e) {
-                return redirect()->back()->with('error', $e->getMessage())->withInput();
-            }
-        }
     }
 
     /**

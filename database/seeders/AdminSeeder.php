@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class AdminSeeder extends Seeder
 {
@@ -17,5 +18,11 @@ class AdminSeeder extends Seeder
             'email' => 'admin@codebank.com',
             'password' => 'Codebank@123',
         ]);
+        $role = Role::create(['name' => 'admin']);
+      $merchant =  Role::create(['name' => 'merchant']);
+        Role::create(['name' => 'designer']);
+        $user->assignRole($role);
+        $user->assignRole($merchant);
+
     }
 }
