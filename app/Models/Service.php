@@ -10,4 +10,9 @@ class Service extends Model
     use HasFactory;
     protected $fillable = ['name', 'description', 'category', 'status', 'credit'];
     protected $guarded = ['id'];
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class,'project_service');
+    }
 }

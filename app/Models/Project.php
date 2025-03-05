@@ -12,7 +12,6 @@ class Project extends Model
         'name',
         'user_id',
         'product_id',
-        'service_id',
         'priority',
         'guidelines',
         'notes',
@@ -29,6 +28,10 @@ class Project extends Model
     }
     public function service()
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsToMany(Service::class, 'project_service');
+    }
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'mediable');
     }
 }

@@ -96,5 +96,8 @@ return [
         'notes' => [
             'maxlength' => 'Notes must not exceed 1000 characters',
         ],
+        'service_id' => [
+            'required' => 'Service is required',
+        ]
     ],
 ];

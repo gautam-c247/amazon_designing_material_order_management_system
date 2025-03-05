@@ -18,7 +18,6 @@ class ProjectFactory extends Factory
             'name' => $this->faker->words(3, true),
             'user_id' => User::factory(),
             'product_id' => Product::factory(),
-            'service_id' => Service::factory(),
             'priority' => $this->faker->randomElement(['low', 'medium', 'high']),
             'guidelines' => $this->faker->paragraph(),
             'notes' => $this->faker->paragraph(),

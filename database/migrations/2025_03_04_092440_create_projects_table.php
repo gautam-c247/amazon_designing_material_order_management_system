@@ -16,13 +16,17 @@ return new class extends Migration
             $table->string('name', 100);
             $table->foreignId('user_id')->constrained()->comment('The merchant who created the project');
             $table->foreignId('product_id')->constrained();
-            $table->foreignId('service_id')->constrained();
             $table->enum('priority', ['low', 'medium', 'high'])->default('low');
             $table->text('guidelines')->nullable();
             $table->text('notes')->nullable();
             $table->date('estimated_delivery_date')->nullable();
             $table->enum('status', ['Pending', 'In progress', 'Completed','Ready for review'])->default('In progress');
             $table->timestamps();
+        });
+        Schema::create('project_service', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
+            $table->foreignId('service_id')->constrained()->onDelete('cascade');
         });
     }
 

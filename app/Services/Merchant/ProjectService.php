@@ -4,11 +4,13 @@ namespace App\Services\Merchant;
 
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
-use App\Models\Project;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Product;
+use App\Models\Project;
 use App\Models\Service;
 
 class ProjectService
@@ -26,9 +28,22 @@ class ProjectService
     {
         DB::beginTransaction();
         try {
+            $data['user_id'] = Auth::id();
+            $services = $data['service_id'];
+
             unset($data['brand_id']);
-            $data['user_id'] = auth()->id();
+            unset($data['service_id']);
+
             $project = Project::create($data);
+            $project->service()->attach($services);
+            if ($data['images']) {
+                $images = $data['images'];
+                unset($data['images']);
+                foreach ($images as $image) {
+                    $path = Storage::disk(config('filesystems.default'))->put('projects', $image);
+                    $project->media()->create(['name' => $path]);
+                }
+            }
             DB::commit();
             return true;
         } catch (Exception $e) {
@@ -102,7 +117,21 @@ class ProjectService
         DB::beginTransaction();
         try {
             $project = Project::findOrFail($id);
+            $services = $data['service_id'];
+
+            unset($data['brand_id']);
+            unset($data['service_id']);
+
             $project->update($data);
+            $project->service()->sync($services);
+            if (isset($data['images'])) {
+                $images = $data['images'];
+                unset($data['images']);
+                foreach ($images as $image) {
+                    $path = Storage::disk(config('filesystems.default'))->put('projects', $image);
+                    $project->media()->create(['name' => $path]);
+                }
+            }
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -129,15 +158,21 @@ class ProjectService
      * @return bool True if the project was successfully deleted, false otherwise.
      * @throws Exception If an error occurs during the deletion process.
      */
-    public function delete($id)
+    public function destroy($id)
     {
         DB::beginTransaction();
         try {
-            $project = Project::findOrfail($id);
+            $project = Project::findOrFail($id);
+            $project->service()->detach();
+            foreach ($project->media as $media) {
+                Storage::disk(config('filesystems.default'))->delete($media->name);
+                $media->delete();
+            }
             $project->delete();
             DB::commit();
             return true;
         } catch (Exception $e) {
+            DB::rollBack();
             throw new Exception($e->getMessage());
         }
     }

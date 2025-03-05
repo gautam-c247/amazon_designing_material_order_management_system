@@ -124,6 +124,9 @@ function updateCatValidation() {
             notes: {
                 maxlength: 1000,
             },
+            'service_id[]': {
+                required: true,
+            },
         },
         messages: {
             name: {
@@ -148,6 +151,9 @@ function updateCatValidation() {
             },
             notes: {
                 maxlength: projectsValidation.create_project.notes.maxlength,
+            },
+            'service_id[]': {
+                required: projectsValidation.create_project.service_id.required,
             },
         },
     });
